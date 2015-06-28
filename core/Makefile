@@ -1519,14 +1519,18 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
 	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
 	   $(BUILT_TARGET_FILES_PACKAGE) $@
 
-CUSTOM_TARGET_PACKAGE := $(PRODUCT_OUT)/haxynox-$(name).zip
+CUSTOM_TARGET_PACKAGE := $(PRODUCT_OUT)/haxynox-$(name)-$(shell date +%Y%m%d).zip
 
 .PHONY: otapackage bacon
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 bacon: otapackage
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(CUSTOM_TARGET_PACKAGE)
 	$(hide) $(MD5SUM) $(CUSTOM_TARGET_PACKAGE) > $(CUSTOM_TARGET_PACKAGE).md5sum
-	@echo -e ${CL_YLW}"Package complete: $(CM_TARGET_PACKAGE)"${CL_RST}
+	@echo -e ${CL_BLD}${CL_CYN}"****************************************-Package complete-****************************************"${CL_RST}
+	@echo -e ${CL_BLD}${CL_GRN}"Zip: "${CL_YLW} $(CUSTOM_TARGET_PACKAGE)${CL_RST}
+	@echo -e ${CL_BLD}${CL_GRN}"MD5: "${CL_YLW}" `cat $(CUSTOM_TARGET_PACKAGE).md5sum | cut -d ' ' -f 1`"${CL_RST}
+	@echo -e ${CL_BLD}${CL_GRN}"Size:"${CL_YLW}" `ls -lah $(CUSTOM_TARGET_PACKAGE) | cut -d ' ' -f 5`"${CL_RST}
+	@echo -e ${CL_BLD}${CL_CYN}"**************************************************************************************************"${CL_RST}
 
 endif    # recovery_fstab is defined
 endif    # TARGET_NO_KERNEL != true
