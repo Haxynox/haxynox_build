@@ -1572,7 +1572,7 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
 	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
 	   $(BUILT_TARGET_FILES_PACKAGE) $@
 
-CUSTOM_TARGET_PACKAGE := $(PRODUCT_OUT)/haxynox-$(name)-$(shell date +%Y%m%d).zip
+CUSTOM_TARGET_PACKAGE := $(PRODUCT_OUT)/haxynox-$(TARGET_DEVICE)-$(shell date +%Y%m%d-%H%M).zip
 
 .PHONY: otapackage bacon
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
