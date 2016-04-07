@@ -522,7 +522,7 @@ function breakfast()
             lunch $target
         else
             # This is probably just the custom model name
-            lunch custom_$target-userdebug
+            lunch aosp_$target-userdebug
         fi
     fi
     return $?
